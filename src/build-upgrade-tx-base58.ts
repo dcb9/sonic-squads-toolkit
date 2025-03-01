@@ -6,12 +6,8 @@ import {
 } from '@solana/web3.js';
 import bs58 from 'bs58';
 import { parseArgs } from "util";
-import {
-  DEFAULT_RPC_URL,
-} from "./utils/constants";
-import {
-  validateRpcUrl,
-} from "./utils/validators";
+import { DEFAULT_RPC_URL } from "./utils/constants";
+import { validateRpcUrl } from "./utils/validators";
 
 const { values } = parseArgs({
   args: Bun.argv,
@@ -50,14 +46,10 @@ if (!values.vault_public_key) {
     process.exit(1);
 }
 
-// const VAULT_PUBLIC_KEY = new PublicKey("1U6E64e893D8AgK6JBFjzFFAWupkzBjhUASg6Py8HZv")
-// const PROGRAM_ID = new PublicKey("DyA8s2ZrxpAcVevwYmEXZfddsKxAELo1ZjQtYpKRKzTz");
-// const BUFFER_ACCOUNT = new PublicKey("8FYJs2ChoEW7hAyzKzppwj9tmcTb6eaGHoCgqSApStRh");
-
 const VAULT_PUBLIC_KEY = new PublicKey(values.vault_public_key)
 const PROGRAM_ID = new PublicKey(values.program_id);
 const BUFFER_ACCOUNT = new PublicKey(values.buffer_account);
-const FEE_PAYER_PUBLIC_KEY = new PublicKey(values.fee_payer_public_key); // Gi2ommjX7QKTHPsyr96XSPoBDzzNnS4rtjMp4B4eEXas
+const FEE_PAYER_PUBLIC_KEY = new PublicKey(values.fee_payer_public_key);
 
 const rpcUrl = values.url
   ? validateRpcUrl(values.url)
