@@ -82,7 +82,7 @@ On successful execution, the script will output:
 - The transaction signature
 - The multisig account address (important to save for future interactions)
 
-## Notes
+### Notes
 
 - By default, the threshold is set to 1 if not specified
 - All members are given full permissions in the multisig
@@ -90,4 +90,50 @@ On successful execution, the script will output:
 - Ensure you have sufficient SOL in your admin account to pay for transaction fees
 - The threshold represents the minimum number of signatures required to approve a transaction
 
+## Build Upgrade Transaction
+
+You can use the `build-upgrade-tx-base58.ts` script to create a serialized base58-encoded transaction message for upgrading a Solana program. This script is useful to prepare upgrade transactions with necessary parameters for execution.
+
+### Setup
+
+Ensure you have set up your keypairs and have the required parameters ready:
+
+1. Make sure to have your `vault_public_key`, `program_id`, `buffer_account`, and `fee_payer_public_key` available.
+2. Set up any required accounts with sufficient SOL to pay for transaction fees and operations.
+
+### Usage
+
+Run the script using the following command:
+
+```bash
+bun run src/build-upgrade-tx-base58.ts [options]
+```
+
+### Required Parameters
+
+- `--vault_public_key <pubkey>`: The public key of the upgrade authority's vault.
+- `--program_id <pubkey>`: The public key of the program you intend to upgrade.
+- `--buffer_account <pubkey>`: The public key of the account containing the new program code.
+- `--fee_payer_public_key <pubkey>`: The public key of the account paying for transaction fees.
+
+### Optional Parameters
+
+- `--url <rpc-url>`: Custom RPC URL to connect to the Solana network (defaults to `https://api.testnet.sonic.game`).
+
+### Examples
+
+Generate a base58-encoded transaction message for an upgrade:
+
+```bash
+$ bun run src/build-upgrade-tx-base58.ts \
+    --vault_public_key 1U6E64e893D8AgK6JBFjzFFAWupkzBjhUASg6Py8HZv \
+    --program_id DyA8s2ZrxpAcVevwYmEXZfddsKxAELo1ZjQtYpKRKzTz \
+    --buffer_account  8FYJs2ChoEW7hAyzKzppwj9tmcTb6eaGHoCgqSApStRh \
+    --fee_payer_public_key Gi2ommjX7QKTHPsyr96XSPoBDzzNnS4rtjMp4B4eEXas
+
+Base58 Encoded Transaction Message:
+PDbtyEi9CGUCvTKfdZqh7Vm3uQJo68cPFH8biFc5MgpdZpRRv87UuqrenLZQTiottqdZvVoQRUXzZ9h6pfiPSsu6xT1ZdmiBgNnfBFbEJd2Fw5HZMaLoBMZyx6jWh9rY5mbNmeZBGkwHsFyisEaBJCCZ3aLzvoGZPau5cJZsxRdUtq74DrMzn5J4EZHHDyGVmzUeLqiGZdqtLMNExDBRUrFe6HUNiPX43pmBBmadU7RvLBGidts1jaVWEGR92vGDRKmRNcmyevxgPk6tkZtLW5TC4m1pqsNBwfMaMH9W4W3tdVzQVPmgyCuEScE16Qys7EMkcNMrxkFv4VTBDLqsypecPVof8RdhLMGfDRZmLBLRSXmp62E7UF9R2CyPssmJVEMStnP42i7VMmRwXN56djGaocomRRj685xJ1razfmWbssmNKVCMLfo5q8ee1Uw9xxAninUy72K5i7
+```
+
+## Notes
 This project was created using `bun init` in bun v1.1.18. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
